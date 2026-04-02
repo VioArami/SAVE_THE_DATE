@@ -206,24 +206,24 @@
 
     <section class="stacked-carousel-section">
         <div class="stack-container" id="swipeArea">
-            <div class="polaroid-card" style="background-image: url('ivan_vio_1.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_2.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_3.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_4.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_5.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_6.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_7.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_8.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_9.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_10.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_11.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_12.jpeg');"></div>
-            <div class="polaroid-card" style="background-image: url('ivan_vio_13.jpeg');"></div>
             <div class="polaroid-card" style="background-image: url('ivan_vio_14.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_13.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_12.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_11.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_10.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_9.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_8.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_7.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_6.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_5.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_4.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_3.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_2.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_1.jpeg');"></div>
         </div>
         <div class="swipe-bar">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-mouse-pointer-icon lucide-square-mouse-pointer"><path d="M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"/><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/></svg>
-            <p>Click en la imagen para ver más fotos</p>
+            <p>Deslizá o tocá para ver más fotos</p>
         </div>
     </section>
 
@@ -310,9 +310,12 @@
     </section>
 
     <script>
-        // Lógica Carrusel
+        // Lógica Carrusel - con soporte táctil
         const swipeArea = document.getElementById('swipeArea');
-        swipeArea.addEventListener('click', () => {
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        function nextPhoto() {
             const photos = swipeArea.querySelectorAll('.polaroid-card');
             const topPhoto = photos[photos.length - 1];
             topPhoto.classList.add('exit');
@@ -320,7 +323,27 @@
                 topPhoto.classList.remove('exit');
                 swipeArea.prepend(topPhoto);
             }, 600);
-        });
+        }
+
+        // Click (desktop)
+        swipeArea.addEventListener('click', nextPhoto);
+
+        // Touch (móvil)
+        swipeArea.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        swipeArea.addEventListener('touchend', (e) => {
+            const deltaX = e.changedTouches[0].clientX - touchStartX;
+            const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+            // Solo cuenta como swipe si el movimiento horizontal supera 30px
+            // y no es principalmente un scroll vertical
+            if (Math.abs(deltaX) > 30 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                nextPhoto();
+            }
+        }, { passive: true });
 
         // Lógica Contador
         const target = new Date("September 11, 2026 15:00:00").getTime();
