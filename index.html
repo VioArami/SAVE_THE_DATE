@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nuestra Boda | I & V</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fdfbf7;
+            --text-dark: #333;
+            --text-light: #777;
+            --accent-beige: #e3d5c8;
+            --accent-green: #3d4035;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* --- 1. PORTADA --- */
+        #banner {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 20px 0;
+        }
+        #banner img {
+            max-width: 90%;
+            max-height: 90vh;
+            height: auto;
+            object-fit: contain;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* --- 2. CARRUSEL --- */
+        .stacked-carousel-section { padding: 60px 0; background-color: var(--bg-color); }
+        .stack-container {
+            position: relative;
+            width: 280px;
+            height: 380px;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+        .polaroid-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border: 10px solid white;
+            border-bottom-width: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s;
+        }
+        .polaroid-card:nth-child(1) { transform: rotate(-3deg); z-index: 3; }
+        .polaroid-card:nth-child(2) { transform: rotate(2deg); z-index: 2; opacity: 0.9; }
+        .polaroid-card:nth-child(3) { transform: rotate(-1deg); z-index: 1; opacity: 0.7; }
+        .polaroid-card.exit { transform: translateX(-150%) rotate(-15deg) !important; opacity: 0; }
+
+        .swipe-bar {
+            background-color: #ece5dc;
+            padding: 20px 0;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .swipe-bar p { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin: 0; color: var(--text-dark); font-weight: 600; }
+        .icon-hand { width: 24px; height: auto; }
+
+        /* --- 3. BIENVENIDA --- */
+        #welcome { padding: 60px 20px; }
+        .welcome-text { font-size: 1.2rem; color: var(--text-light); max-width: 600px; margin: 0 auto; }
+
+        /* --- 4. CONTADOR --- */
+        .timer { display: flex; justify-content: center; gap: 30px; padding: 40px 0; }
+        .timer-number { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--accent-green); display: block; line-height: 1; }
+        .timer-label { font-size: 0.75rem; text-transform: uppercase; color: var(--text-light); letter-spacing: 1px; }
+
+        /* --- 5. LUGAR --- */
+        #location { padding: 60px 20px; background: white; }
+        .location-info { margin-bottom: 30px; }
+        .map-frame { width: 100%; max-width: 700px; height: 350px; border: none; border-radius: 12px; background: #eee; }
+
+        /* --- 6. ITINERARIO --- */
+        .itinerary-section { padding: 80px 20px; max-width: 600px; margin: auto; }
+        .itinerary-title { font-family: 'Dancing Script', cursive; font-size: 4rem; color: #888; margin-bottom: 40px; }
+        .timeline { position: relative; padding: 20px 0; }
+        .timeline::after {
+            content: ''; position: absolute; width: 2px; background-color: var(--accent-beige);
+            top: 0; bottom: 0; left: 50%; margin-left: -1px;
+        }
+        .itinerary-item { width: 50%; padding: 20px 40px; position: relative; margin-bottom: 20px; }
+        .itinerary-item::after {
+            content: ''; position: absolute; width: 14px; height: 14px; 
+            background-color: var(--accent-beige); border-radius: 50%; top: 25px; z-index: 1;
+        }
+        .left { left: 0; text-align: right; }
+        .right { left: 50%; text-align: left; }
+        .left::after { right: -7px; }
+        .right::after { left: -7px; }
+        .itinerary-item h3 { font-size: 1.3rem; font-weight: 600; color: var(--text-dark); }
+        .itinerary-item p { font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #555; }
+        .icon-svg { width: 30px; height: 30px; fill: none; stroke: var(--accent-green); stroke-width: 1.5; margin-bottom: 8px; }
+
+        @media (max-width: 600px) {
+            .timeline::after { left: 20px; }
+            .itinerary-item { width: 100%; left: 0; text-align: left; padding-left: 45px; }
+            .itinerary-item::after { left: 13px; }
+            .timer-number { font-size: 2.5rem; }
+        }
+
+        /* --- 7. RSVP --- */
+        #rsvp { padding: 80px 20px; background-color: white; }
+        .rsvp-form { display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: auto; }
+        input, select { padding: 15px; border: 1px solid #ddd; font-family: inherit; border-radius: 8px; font-size: 1rem; }
+        .btn-confirm { background: var(--accent-green); color: white; border: none; padding: 18px; text-transform: uppercase; cursor: pointer; font-weight: 600; border-radius: 8px; transition: opacity 0.3s; }
+        .btn-confirm:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+  <section class="hero">
+    <img src="boda_ivan_y_vio.jpg" alt="Iván y Violeta">
+  </section>
+
+    <section class="stacked-carousel-section">
+        <div class="stack-container" id="swipeArea">
+            <div class="polaroid-card" style="background-image: url('ivan_vio_1.jpeg');"></div>
+            <div class="polaroid-card" style="background-image: url('ivan_vio_2.jpeg');"></div>
+        </div>
+        <div class="swipe-bar">
+            <svg class="icon-hand" viewBox="0 0 24 24" fill="none" stroke="#3d4035" stroke-width="2"><path d="M18 11V6a2 2 0 00-2-2v0a2 2 0 00-2 2v0"></path><path d="M14 10V4a2 2 0 00-2-2v0a2 2 0 00-2 2v0"></path><path d="M10 10.5V6a2 2 0 00-2-2v0a2 2 0 00-2 2v0"></path><path d="M18 8a2 2 0 114 0v6a8 8 0 01-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 012.83-2.82L7 15"></path></svg>
+            <p>Desliza para ver más fotos</p>
+        </div>
+    </section>
+
+    <section id="welcome">
+        <p class="welcome-text">Nos encantaría celebrar este día tan especial, junto a ti.</p>
+    </section>
+
+    <section id="timer">
+        <div class="timer">
+            <div class="timer-item"><span class="timer-number" id="days">00</span><span class="timer-label">Días</span></div>
+            <div class="timer-item"><span class="timer-number" id="hours">00</span><span class="timer-label">Hrs</span></div>
+            <div class="timer-item"><span class="timer-number" id="mins">00</span><span class="timer-label">Min</span></div>
+        </div>
+    </section>
+
+    <section id="location">
+        <div class="location-info">
+            <p style="font-size: 1.2rem;"><strong>Terraza Vista Verde</strong></p>
+            <p style="color: var(--text-light);">P.º del Yacht y Golf Club, Lambaré, Paraguay</p>
+        </div>
+        <iframe class="map-frame" src="https://www.google.com/maps/place/Terrazas+Vista+Verde/@-25.3080601,-57.5419537,15z/data=!4m9!3m8!1s0x945da9409c08f125:0x863d692798e5517b!5m2!4m1!1i2!8m2!3d-25.3669875!4d-57.63633!16s%2Fg%2F11rzbgphkn?entry=ttu&g_ep=EgoyMDI2MDMxNS4wIKXMDSoASAFQAw%3D%3D"></iframe>
+    </section>
+
+    <section class="itinerary-section">
+        <h2 class="itinerary-title">Itinerario</h2>
+        <div class="timeline">
+            <div class="itinerary-item left">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <h3>15:00</h3><p>Ceremonia Civil y Religiosa</p>
+            </div>
+            <div class="itinerary-item right">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <h3>16:30</h3><p>Social</p>
+            </div>
+              <div class="itinerary-item left">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                <h3>18:00</h3><p>Baile de Novios</p>
+            </div>
+            <div class="itinerary-item right">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                <h3>19:00</h3><p>Cena</p>
+            </div>
+            <div class="itinerary-item left">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                <h3>20:30</h3><p>Calabaza calabaza... <br> Cada uno a su casa</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="rsvp">
+        <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 30px; font-size: 2.5rem;">Confirmar Asistencia</h2>
+        <form class="rsvp-form" id="rsvpForm">
+            <input type="text" id="nombre" placeholder="Nombre y Apellido" required>
+            <select id="asistencia" required>
+                <option value="">¿Asistirás?</option>
+                <option value="Sí, confirmo">Sí, ¡Ahí estaré!</option>
+                <option value="No podré">No podré asistir</option>
+            </select>
+            <button type="submit" class="btn-confirm">Confirmar por WhatsApp</button>
+        </form>
+    </section>
+
+    <script>
+        // Lógica Carrusel
+        const swipeArea = document.getElementById('swipeArea');
+        swipeArea.addEventListener('click', () => {
+            const photos = swipeArea.querySelectorAll('.polaroid-card');
+            const topPhoto = photos[photos.length - 1];
+            topPhoto.classList.add('exit');
+            setTimeout(() => {
+                topPhoto.classList.remove('exit');
+                swipeArea.prepend(topPhoto);
+            }, 600);
+        });
+
+        // Lógica Contador
+        const target = new Date("September 11, 2026 15:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = target - now;
+            
+            if (diff > 0) {
+                document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
+                document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+                document.getElementById('mins').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+            }
+        }, 1000);
+
+        // WhatsApp
+        document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const n = document.getElementById('nombre').value;
+            const a = document.getElementById('asistencia').value;
+            window.open(`https://wa.me/595981000000?text=Hola, soy ${n}. ${a} a la boda de Iván y Vio.`, '_blank');
+        });
+    </script>
+</body>
+</html>
