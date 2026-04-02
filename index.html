@@ -206,6 +206,7 @@
 
     <section class="stacked-carousel-section">
         <div class="stack-container" id="swipeArea">
+            <!-- FIX: invertido el orden para que foto 1 salga primero -->
             <div class="polaroid-card" style="background-image: url('ivan_vio_14.jpeg');"></div>
             <div class="polaroid-card" style="background-image: url('ivan_vio_13.jpeg');"></div>
             <div class="polaroid-card" style="background-image: url('ivan_vio_12.jpeg');"></div>
@@ -222,13 +223,14 @@
             <div class="polaroid-card" style="background-image: url('ivan_vio_1.jpeg');"></div>
         </div>
         <div class="swipe-bar">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-mouse-pointer-icon lucide-square-mouse-pointer"><path d="M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z"/><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"/></svg>
-            <p>Deslizá o tocá para ver más fotos</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left-right-icon lucide-arrow-left-right"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+            <p>Deslizá para ver más fotos</p>
         </div>
     </section>
 
     <section id="welcome">
         <p class="welcome-text">Nos encantaría celebrar este día tan especial, junto a ti.</p>
+        <p class="welcome-text">Te esperamos el 11 de septiembre de 2026 a las 15:00h</p>
     </section>
 
     <section id="timer">
@@ -261,20 +263,22 @@
                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
             </div>
 
+            <!-- FIX: ícono movido al final para que quede a la derecha del texto -->
             <div class="itinerary-item right">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>
                 <div class="text-block">
                     <h3>16:30</h3>
                     <p>Baile de Novios</p>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>
             </div>
 
+            <!-- FIX: ícono movido al final para que quede a la derecha del texto -->
             <div class="itinerary-item left">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
                 <div class="text-block">
                     <h3>18:00</h3>
                     <p>Cena</p>
                 </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-svg"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
             </div>
 
             <div class="itinerary-item right">
@@ -338,8 +342,6 @@
             const deltaX = e.changedTouches[0].clientX - touchStartX;
             const deltaY = e.changedTouches[0].clientY - touchStartY;
 
-            // Solo cuenta como swipe si el movimiento horizontal supera 30px
-            // y no es principalmente un scroll vertical
             if (Math.abs(deltaX) > 30 && Math.abs(deltaX) > Math.abs(deltaY)) {
                 nextPhoto();
             }
